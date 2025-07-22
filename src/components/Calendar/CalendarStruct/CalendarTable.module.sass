@@ -1,0 +1,46 @@
+.CalendarWrapper
+  width: 100%
+  max-width: 400px
+  margin: 0 auto
+  font-family: Arial, sans-serif
+
+.WeekDays
+  display: grid
+  grid-template-columns: repeat(7, 1fr)
+  text-align: center
+  font-weight: bold
+  margin-bottom: 8px
+
+.WeekDay
+  color: #E91E63
+
+.DaysGrid
+  display: grid
+  grid-template-columns: repeat(7, 1fr)
+  gap: 10px
+
+.DayCell,
+.EmptyCell
+  height: 40px
+  display: flex
+  align-items: center
+  justify-content: center
+  border-radius: 6px
+  cursor: pointer
+  user-select: none
+
+.DayCell
+  background-color: #f0f0f0
+  color: #333
+  transition: background-color 0.3s ease
+
+
+.EmptyCell
+  background-color: transparent
+  cursor: default
+
+.Today
+  background-color: #E91E63
+  color: white
+  font-weight: bold
+  box-shadow: 0 0 8px #E91E63
