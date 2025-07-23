@@ -5,7 +5,7 @@ import styles from './CalendarStruct.module.sass'
 import CurrentStructHeader from './CurrentStructHeader/index.jsx'
 import CalendarTable from './CalendarTable/index.jsx'
 
-export default function CalendarStruct({
+function CalendarStruct({
 	currentDate,
 	monthNames,
 	dayNames,
@@ -58,3 +58,5 @@ CalendarStruct.propTypes = {
 		})
 	),
 }
+
+export default CalendarStruct

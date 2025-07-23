@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import styles from './CalendarTable.module.sass'
 
-export default function CalendarTable({
+function CalendarTable({
 	currentDate,
 	dayNames,
 	onSelectDate,
@@ -128,3 +128,5 @@ CalendarTable.propTypes = {
 		})
 	),
 }
+
+export default CalendarTable
