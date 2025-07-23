@@ -2,27 +2,39 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { getMonth, getYear } from 'date-fns'
 import styles from './CalendarStruct.module.sass'
-import CurrentStractHeader from './CurrentStractHeader'
+import CurrentStructHeader from './CurrentStractHeader'
 import CalendarTable from './CalendarTable'
 
 export default function CalendarStruct({
 	currentDate,
 	monthNames,
+	dayNames,
 	onPrevMonth,
 	onNextMonth,
+	onSelectDate,
+	rangeStart,
+	rangeEnd,
+	holidays,
 }) {
 	const monthName = monthNames[getMonth(currentDate)]
 	const year = getYear(currentDate)
 
 	return (
 		<div className={styles.CalendarStructContainer}>
-			<CurrentStractHeader
+			<CurrentStructHeader
 				monthName={monthName}
 				year={year}
 				onPrevMonth={onPrevMonth}
 				onNextMonth={onNextMonth}
 			/>
-			<CalendarTable currentDate={currentDate} />
+			<CalendarTable
+				currentDate={currentDate}
+				dayNames={dayNames}
+				onSelectDate={onSelectDate}
+				rangeStart={rangeStart}
+				rangeEnd={rangeEnd}
+				holidays={holidays}
+			/>
 		</div>
 	)
 }
@@ -30,6 +42,11 @@ export default function CalendarStruct({
 CalendarStruct.propTypes = {
 	currentDate: PropTypes.instanceOf(Date).isRequired,
 	monthNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+	dayNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 	onPrevMonth: PropTypes.func.isRequired,
 	onNextMonth: PropTypes.func.isRequired,
+	onSelectDate: PropTypes.func.isRequired,
+	rangeStart: PropTypes.instanceOf(Date),
+	rangeEnd: PropTypes.instanceOf(Date),
+	holidays: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
 }

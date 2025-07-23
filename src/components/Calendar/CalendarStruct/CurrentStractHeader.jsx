@@ -1,8 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styles from './CurrentStractHeader.module.sass'
+import PropTypes from 'prop-types'
 
-export default function CurrentStractHeader({
+export default function CurrentStructHeader({
 	monthName,
 	year,
 	onPrevMonth,
@@ -11,19 +11,19 @@ export default function CurrentStractHeader({
 	return (
 		<div className={styles.CalendarStructHeader}>
 			<button className={styles.CalendarStructHeaderBtn} onClick={onPrevMonth}>
-				{`<`}
+				{'<'}
 			</button>
 			<p className={styles.CalendarStructHeaderTitle}>
 				{monthName} {year}
 			</p>
 			<button className={styles.CalendarStructHeaderBtn} onClick={onNextMonth}>
-				{`>`}
+				{'>'}
 			</button>
 		</div>
 	)
 }
 
-CurrentStractHeader.propTypes = {
+CurrentStructHeader.propTypes = {
 	monthName: PropTypes.string.isRequired,
 	year: PropTypes.number.isRequired,
 	onPrevMonth: PropTypes.func.isRequired,
