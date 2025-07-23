@@ -1,47 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { isSameDay, startOfMonth, addMonths, subMonths } from 'date-fns'
 import CurrentData from './CurrentData'
 import CalendarStruct from './CalendarStruct'
 import styles from './Calendar.module.sass'
 
-export default function Calendar({
+const Calendar = ({
 	currentDate,
-	holidays = [],
-	videoDates = [],
-	monthNames = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December',
-	],
-	dayNames = [
-		'Sunday',
-		'Monday',
-		'Tuesday',
-		'Wednesday',
-		'Thursday',
-		'Friday',
-		'Saturday',
-	],
-}) {
+	holidays,
+	videoDates,
+	monthNames,
+	dayNames,
+}) => {
 	const [rangeStart, setRangeStart] = useState(null)
 	const [rangeEnd, setRangeEnd] = useState(null)
 	const [theme, setTheme] = useState('day')
 	const [displayMonth, setDisplayMonth] = useState(startOfMonth(currentDate))
 	const [selectedVideoUrl, setSelectedVideoUrl] = useState(null)
-
-	useEffect(() => {
-		setDisplayMonth(startOfMonth(currentDate))
-	}, [currentDate])
 
 	const handlePrevMonth = () => {
 		setDisplayMonth(subMonths(displayMonth, 1))
@@ -118,7 +93,7 @@ export default function Calendar({
 			{selectedVideoUrl && (
 				<div className={styles.VideoLinkContainer}>
 					<a href={selectedVideoUrl} target='_blank' rel='noopener noreferrer'>
-						Переглянути відео
+						See video for this date
 					</a>
 				</div>
 			)}
@@ -128,7 +103,6 @@ export default function Calendar({
 
 Calendar.propTypes = {
 	currentDate: PropTypes.instanceOf(Date).isRequired,
-	onChangeDate: PropTypes.func.isRequired,
 	holidays: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
 	videoDates: PropTypes.arrayOf(
 		PropTypes.shape({
@@ -139,3 +113,5 @@ Calendar.propTypes = {
 	monthNames: PropTypes.arrayOf(PropTypes.string),
 	dayNames: PropTypes.arrayOf(PropTypes.string),
 }
+
+export default Calendar

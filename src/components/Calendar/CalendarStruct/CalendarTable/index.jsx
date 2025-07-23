@@ -9,6 +9,7 @@ import {
 	isSameDay,
 } from 'date-fns'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 import styles from './CalendarTable.module.sass'
 
 export default function CalendarTable({
@@ -17,8 +18,8 @@ export default function CalendarTable({
 	onSelectDate,
 	rangeStart,
 	rangeEnd,
-	holidays = [],
-	videoDates = [],
+	holidays,
+	videoDates,
 }) {
 	const daysOfWeek = dayNames.map((d) => d[0])
 
@@ -70,6 +71,7 @@ export default function CalendarTable({
 						currentDate.getMonth(),
 						day
 					)
+
 					const isTodayCell = isToday(dateObj)
 					const isRangeStart = rangeStart && isSameDay(dateObj, rangeStart)
 					const isRangeEnd = rangeEnd && isSameDay(dateObj, rangeEnd)
@@ -77,19 +79,19 @@ export default function CalendarTable({
 					const isHolidayCell = isHoliday(dateObj)
 					const isVideoCell = isVideoDate(dateObj)
 
-					let className = styles.DayCell
-					if (isTodayCell) className += ` ${styles.Today}`
-					if (isInRangeCell || isRangeStart || isRangeEnd)
-						className += ` ${styles.Selected}`
-					if (isRangeStart) className += ` ${styles.RangeStart}`
-					if (isRangeEnd) className += ` ${styles.RangeEnd}`
-					if (isHolidayCell) className += ` ${styles.Holiday}`
-					if (isVideoCell) className += ` ${styles.VideoDate}`
+					const classNameDateStyles = classNames(styles.DayCell, {
+						[styles.Today]: isTodayCell,
+						[styles.Selected]: isInRangeCell || isRangeStart || isRangeEnd,
+						[styles.RangeStart]: isRangeStart,
+						[styles.RangeEnd]: isRangeEnd,
+						[styles.Holiday]: isHolidayCell,
+						[styles.VideoDate]: isVideoCell,
+					})
 
 					return (
 						<div
 							key={index}
-							className={className}
+							className={classNameDateStyles}
 							onClick={() => onSelectDate(dateObj)}
 							title={
 								isHolidayCell ? 'Holiday' : isVideoCell ? 'Video Available' : ''
