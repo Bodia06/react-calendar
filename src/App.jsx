@@ -4,8 +4,14 @@ import './App.css'
 import loaderHolidays from './api/loaderHolidays'
 
 const videoDates = [
-	{ date: new Date(2025, 6, 23), url: 'https://example.com/video1' },
-	{ date: new Date(2025, 6, 25), url: 'https://example.com/video2' },
+	{
+		date: new Date(2025, 6, 23),
+		url: 'https://www.youtube.com/watch?v=MCCJn90gplQ&list=RDMCCJn90gplQ&start_radio=1',
+	},
+	{
+		date: new Date(2025, 6, 25),
+		url: 'https://www.youtube.com/watch?v=tqUUNMq71vk',
+	},
 ]
 
 export default class App extends Component {
