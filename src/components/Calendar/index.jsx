@@ -35,11 +35,13 @@ const Calendar = ({
 		if (rangeStart && rangeEnd) {
 			if (isSameDay(date, rangeStart)) {
 				setRangeStart(null)
+				setRangeEnd(null)
 				setSelectedVideoUrl(null)
 				return
 			}
 			if (isSameDay(date, rangeEnd)) {
 				setRangeEnd(null)
+				setRangeStart(null)
 				setSelectedVideoUrl(null)
 				return
 			}
