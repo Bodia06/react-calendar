@@ -7,7 +7,6 @@ import styles from './Calendar.module.sass'
 
 export default function Calendar({
 	currentDate,
-	onChangeDate,
 	holidays = [],
 	videoDates = [],
 	monthNames = [
@@ -112,11 +111,10 @@ export default function Calendar({
 				rangeStart={rangeStart}
 				rangeEnd={rangeEnd}
 				holidays={holidays}
-				videoDates={videoDates} // передаємо вниз
+				videoDates={videoDates}
 				selectedDate={currentDate}
 			/>
 
-			{/* Показ посилання на відео під календарем */}
 			{selectedVideoUrl && (
 				<div className={styles.VideoLinkContainer}>
 					<a href={selectedVideoUrl} target='_blank' rel='noopener noreferrer'>

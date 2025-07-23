@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { getMonth, getYear } from 'date-fns'
 import styles from './CalendarStruct.module.sass'
-import CurrentStructHeader from './CurrentStractHeader'
-import CalendarTable from './CalendarTable'
+import CurrentStructHeader from './CurrentStructHeader/index.jsx'
+import CalendarTable from './CalendarTable/index.jsx'
 
 export default function CalendarStruct({
 	currentDate,
