@@ -9,6 +9,7 @@ export default function Calendar({
 	currentDate,
 	onChangeDate,
 	holidays = [],
+	videoDates = [],
 	monthNames = [
 		'January',
 		'February',
@@ -36,8 +37,8 @@ export default function Calendar({
 	const [rangeStart, setRangeStart] = useState(null)
 	const [rangeEnd, setRangeEnd] = useState(null)
 	const [theme, setTheme] = useState('day')
-
 	const [displayMonth, setDisplayMonth] = useState(startOfMonth(currentDate))
+	const [selectedVideoUrl, setSelectedVideoUrl] = useState(null)
 
 	useEffect(() => {
 		setDisplayMonth(startOfMonth(currentDate))
@@ -54,22 +55,23 @@ export default function Calendar({
 	const handleSelectDate = (date) => {
 		if (rangeStart && !rangeEnd && isSameDay(date, rangeStart)) {
 			setRangeStart(null)
+			setSelectedVideoUrl(null)
 			return
 		}
 		if (rangeStart && rangeEnd) {
 			if (isSameDay(date, rangeStart)) {
 				setRangeStart(null)
+				setSelectedVideoUrl(null)
 				return
 			}
 			if (isSameDay(date, rangeEnd)) {
 				setRangeEnd(null)
+				setSelectedVideoUrl(null)
 				return
 			}
 			setRangeStart(date)
 			setRangeEnd(null)
-			return
-		}
-		if (rangeStart && !rangeEnd) {
+		} else if (rangeStart && !rangeEnd) {
 			if (date < rangeStart) {
 				setRangeEnd(rangeStart)
 				setRangeStart(date)
@@ -78,9 +80,16 @@ export default function Calendar({
 			} else {
 				setRangeEnd(date)
 			}
-			return
+		} else {
+			setRangeStart(date)
 		}
-		setRangeStart(date)
+
+		const video = videoDates.find((v) => isSameDay(new Date(v.date), date))
+		if (video) {
+			setSelectedVideoUrl(video.url)
+		} else {
+			setSelectedVideoUrl(null)
+		}
 	}
 
 	const toggleTheme = () => {
@@ -103,8 +112,18 @@ export default function Calendar({
 				rangeStart={rangeStart}
 				rangeEnd={rangeEnd}
 				holidays={holidays}
+				videoDates={videoDates} // передаємо вниз
 				selectedDate={currentDate}
 			/>
+
+			{/* Показ посилання на відео під календарем */}
+			{selectedVideoUrl && (
+				<div className={styles.VideoLinkContainer}>
+					<a href={selectedVideoUrl} target='_blank' rel='noopener noreferrer'>
+						Переглянути відео
+					</a>
+				</div>
+			)}
 		</div>
 	)
 }
@@ -113,6 +132,12 @@ Calendar.propTypes = {
 	currentDate: PropTypes.instanceOf(Date).isRequired,
 	onChangeDate: PropTypes.func.isRequired,
 	holidays: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+	videoDates: PropTypes.arrayOf(
+		PropTypes.shape({
+			date: PropTypes.instanceOf(Date).isRequired,
+			url: PropTypes.string.isRequired,
+		})
+	),
 	monthNames: PropTypes.arrayOf(PropTypes.string),
 	dayNames: PropTypes.arrayOf(PropTypes.string),
 }

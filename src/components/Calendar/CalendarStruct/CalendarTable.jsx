@@ -18,6 +18,7 @@ export default function CalendarTable({
 	rangeStart,
 	rangeEnd,
 	holidays = [],
+	videoDates = [],
 }) {
 	const daysOfWeek = dayNames.map((d) => d[0])
 
@@ -47,6 +48,9 @@ export default function CalendarTable({
 	const isHoliday = (date) =>
 		holidays.some((holiday) => isSameDay(new Date(holiday), date))
 
+	const isVideoDate = (date) =>
+		videoDates.some((v) => isSameDay(new Date(v.date), date))
+
 	return (
 		<div className={styles.CalendarWrapper}>
 			<div className={styles.WeekDays}>
@@ -71,6 +75,7 @@ export default function CalendarTable({
 					const isRangeEnd = rangeEnd && isSameDay(dateObj, rangeEnd)
 					const isInRangeCell = isInRange(dateObj)
 					const isHolidayCell = isHoliday(dateObj)
+					const isVideoCell = isVideoDate(dateObj)
 
 					let className = styles.DayCell
 					if (isTodayCell) className += ` ${styles.Today}`
@@ -79,13 +84,16 @@ export default function CalendarTable({
 					if (isRangeStart) className += ` ${styles.RangeStart}`
 					if (isRangeEnd) className += ` ${styles.RangeEnd}`
 					if (isHolidayCell) className += ` ${styles.Holiday}`
+					if (isVideoCell) className += ` ${styles.VideoDate}`
 
 					return (
 						<div
 							key={index}
 							className={className}
 							onClick={() => onSelectDate(dateObj)}
-							title={isHolidayCell ? 'Holiday' : ''}
+							title={
+								isHolidayCell ? 'Holiday' : isVideoCell ? 'Video Available' : ''
+							}
 							role='button'
 							tabIndex={0}
 							onKeyDown={(e) =>
@@ -110,5 +118,11 @@ CalendarTable.propTypes = {
 	rangeEnd: PropTypes.instanceOf(Date),
 	holidays: PropTypes.arrayOf(
 		PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string])
+	),
+	videoDates: PropTypes.arrayOf(
+		PropTypes.shape({
+			date: PropTypes.instanceOf(Date).isRequired,
+			url: PropTypes.string.isRequired,
+		})
 	),
 }

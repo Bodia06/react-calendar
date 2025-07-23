@@ -15,6 +15,7 @@ export default function CalendarStruct({
 	rangeStart,
 	rangeEnd,
 	holidays,
+	videoDates,
 }) {
 	const monthName = monthNames[getMonth(currentDate)]
 	const year = getYear(currentDate)
@@ -34,6 +35,7 @@ export default function CalendarStruct({
 				rangeStart={rangeStart}
 				rangeEnd={rangeEnd}
 				holidays={holidays}
+				videoDates={videoDates}
 			/>
 		</div>
 	)
@@ -49,4 +51,10 @@ CalendarStruct.propTypes = {
 	rangeStart: PropTypes.instanceOf(Date),
 	rangeEnd: PropTypes.instanceOf(Date),
 	holidays: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+	videoDates: PropTypes.arrayOf(
+		PropTypes.shape({
+			date: PropTypes.instanceOf(Date).isRequired,
+			url: PropTypes.string.isRequired,
+		})
+	),
 }

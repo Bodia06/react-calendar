@@ -3,6 +3,11 @@ import Calendar from './components/Calendar'
 import './App.css'
 import loaderHolidays from './api/loaderHolidays'
 
+const videoDates = [
+	{ date: new Date(2025, 6, 23), url: 'https://example.com/video1' },
+	{ date: new Date(2025, 6, 25), url: 'https://example.com/video2' },
+]
+
 export default class App extends Component {
 	constructor(props) {
 		super(props)
@@ -62,6 +67,7 @@ export default class App extends Component {
 						'Dec',
 					]}
 					dayNames={['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']}
+					videoDates={videoDates}
 				/>
 			</div>
 		)
